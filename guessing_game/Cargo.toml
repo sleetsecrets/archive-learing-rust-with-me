@@ -1,0 +1,51 @@
+[package]
+name = "guessing_game"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rand = "0.8.4"
+
+# In the Cargo.toml file, everything that follows a header is part of that section that continues until another section starts.
+# 在 Cargo.toml 文件中，标题（header）后面的所有内容都是该部分（section）的一部分，该部分（section）一直持续到另一个部分（section）开始。
+
+# In [dependencies] you tell Cargo which external crates your project depends on and which versions of those crates you require.
+# [dependencies] 片段告诉 Cargo 本项目依赖了哪些外部 crate 及其版本。
+
+# The number 0.8.4 is actually shorthand for ^0.8.4, which means any version that is at least 0.8.4 but below 0.9.0.
+# 0.8.4 事实上是 ^0.8.4 的简写，它表示任何至少是 0.8.4 但小于 0.9.0 的版本。
+
+# Cargo considers these versions to have public APIs compatible with version 0.8.4,
+# Cargo 认为这些版本具有与 0.8.4 版本兼容的公共 API，
+# and this specification ensures you’ll get the latest patch release that will still compile with the code in this chapter.
+# 并且此规范确保您将获得最新的补丁版本，该补丁版本仍将使用本章中的代码进行编译。
+# Any version 0.9.0 or greater is not guaranteed to have the same API as what the following examples use.
+# 不保证任何版本 0.9.0 或更高版本具有与以下示例使用的相同的 API。
+
+# Cargo has a mechanism that ensures you can rebuild the same artifact every time you or anyone else builds your code:
+# Cargo 有一种机制，可确保您或任何其他人每次构建代码时都可以重建相同的工件：
+# Cargo will use only the versions of the dependencies you specified until you indicate otherwise.
+# Cargo 将仅使用您指定的依赖项版本，除非您另有说明。
+# For example, say that next week version 0.8.5 of the rand crate comes out, and that version contains an important bug fix,
+# 例如，假设下周 rand crate 的 0.8.5 版本发布，该版本包含一个重要的错误修复，
+# but it also contains a regression that will break your code. To handle this, Rust creates the Cargo.lock file the first time you run cargo build,
+# 但它也包含一个会破坏你的代码的回归。 为了处理这个问题，Rust 在您第一次运行 cargo build 时创建 Cargo.lock 文件，
+# so we now have this in the guessing_game directory.
+# 所以我们现在在 guessing_game 目录中有这个。
+
+# When you build a project for the first time,
+# 第一次构建项目时，
+# Cargo figures out all the versions of the dependencies that fit the criteria and then writes them to the Cargo.lock file.
+# Cargo 找出所有符合条件的依赖项版本，然后将它们写入 Cargo.lock 文件。
+# When you build your project in the future, Cargo will see that the Cargo.lock file exists and
+# 当你以后构建你的项目时，Cargo 会看到 Cargo.lock 文件存在并且
+# use the versions specified there rather than doing all the work of figuring out versions again.
+# 使用那里指定的版本，而不是再次完成所有找出版本的工作。
+# This lets you have a reproducible build automatically.
+# 这可以让你自动拥有一个可重现的构建。
+# In other words, your project will remain at 0.8.4 until you explicitly upgrade, thanks to the Cargo.lock file.
+# 换句话说，由于 Cargo.lock 文件，您的项目将保持在 0.8.4，直到您明确升级。
+# Because the Cargo.lock file is important for reproducible builds, it's often checked into source control with the rest of the code in your project.
+# 因为 Cargo.lock 文件对于可重现的构建很重要，所以它经常与项目中的其余代码一起检入源代码管理。
